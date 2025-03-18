@@ -22,7 +22,23 @@ public class Main {
         lista.add(copia(sistema,n));
         for (int z = 0; z < n-1; z++) {
             for (int i = z + 1; i < n; i++) {
-                double x = sistema[i][z] / sistema[z][z];
+                double x;
+                if(sistema[i][z] != 0 && sistema[z][z] !=0) {
+                     x = sistema[i][z] / sistema[z][z];
+                }else if(sistema[z][z] == 0 && sistema[i][z] != 0) {
+                    double[] temp5 = new double[n];
+                    for(int w = 0; w < n; w++){
+                        temp5[w] = sistema[z][w];
+                        sistema[z][w] = sistema[i][w];
+                        sistema[i][w] = temp5[w];
+                    }
+                    lista.remove(z);
+                    lista.add(z, copia(sistema,n));
+                    x = 0;
+                }
+                else{
+                     x = 0;
+                }
                 for (int j = 0; j <= n; j++) {
                     double resu = sistema[i][j] - (sistema[z][j] * x);
                     if(Math.abs(resu) < 1e-10){
